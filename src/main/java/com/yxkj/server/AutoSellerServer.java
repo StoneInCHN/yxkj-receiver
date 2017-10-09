@@ -1,17 +1,26 @@
 package com.yxkj.server;
 
 import com.yxkj.channel.AutoSellerChannelInitializer;
+import com.yxkj.handler.AutoSellerHandler;
 import com.yxkj.handler.OperationSystemHandlerThread;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Server 启动类
@@ -34,6 +43,19 @@ public class AutoSellerServer {
             serverBootstrap.localAddress(new InetSocketAddress(port));
             serverBootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
             serverBootstrap.childHandler(new AutoSellerChannelInitializer<SocketChannel>());
+//            serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+//                @Override
+//                protected void initChannel(SocketChannel ch) throws Exception {
+//                    ChannelPipeline p = ch.pipeline();
+//                    p.addLast(new IdleStateHandler(5, 5, 5, TimeUnit.SECONDS));
+//                    p.addLast(new LoggingHandler());
+//                    p.addLast("decoder", new LineBasedFrameDecoder(1024));
+//                    p.addLast(new StringDecoder());
+//                    p.addLast(new StringEncoder());
+//                    p.addLast(new AutoSellerHandler());
+//                }
+//            });
+
             ChannelFuture f = serverBootstrap.bind().sync();// 配置完成，开始绑定server，通过调用sync同步方法阻塞直到绑定成功
             System.out.println(AutoSellerServer.class.getName() + " started and listen on " + f.channel().localAddress());
             logger.debug("Server started and listen on " + f.channel().localAddress());

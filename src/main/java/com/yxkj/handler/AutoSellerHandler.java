@@ -3,7 +3,6 @@ package com.yxkj.handler;
 import com.yxkj.data.SocketClientMapper;
 import com.yxkj.server.AutoSellerServer;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +14,12 @@ import org.slf4j.LoggerFactory;
  * @author huyong
  * @since 2017/9/13
  */
-public class AutoSellerHandler extends SimpleChannelInboundHandler<String> {
+public class AutoSellerHandler extends CustomHeartbeatHandler {
     private Logger logger = LoggerFactory.getLogger(AutoSellerServer.class.getSimpleName());
+
+    public AutoSellerHandler() {
+        super("Server");
+    }
 //    private LinkedBlockingQueue<Request> queueStack = null;
 
 //    public AutoSellerHandler() {
@@ -24,7 +27,9 @@ public class AutoSellerHandler extends SimpleChannelInboundHandler<String> {
 //        new OperationSystemHandlerThread(queueStack).start();
 //    }
 
-    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+
+    @Override
+    protected void handleData(ChannelHandlerContext ctx, String msg) {
         logger.debug("channelRead: " + ctx.channel().remoteAddress() + " Say:" + msg);
 
 
@@ -34,7 +39,7 @@ public class AutoSellerHandler extends SimpleChannelInboundHandler<String> {
         //c表示消息内容
         //判断如果是第一条消息，保存socketChannel到map中
         String[] msgs = msg.split(";");
-        if (msgs == null || msgs.length != 3) {
+        if (msgs.length != 3) {
             logger.debug("message format error! msg:" + msg);
             return;
         }
@@ -56,6 +61,12 @@ public class AutoSellerHandler extends SimpleChannelInboundHandler<String> {
         }
     }
 
+    @Override
+    protected void handleReaderIdle(ChannelHandlerContext ctx) {
+        super.handleReaderIdle(ctx);
+        logger.error("---client " + ctx.channel().remoteAddress().toString() + " reader timeout, close it---");
+//        ctx.close();
+    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
