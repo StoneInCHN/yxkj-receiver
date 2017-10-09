@@ -5,7 +5,6 @@ import com.yxkj.server.AutoSellerServer;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,15 +56,6 @@ public class AutoSellerHandler extends SimpleChannelInboundHandler<String> {
         }
     }
 
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
-        String uuid = ctx.channel().id().asLongText();
-        NioSocketChannel socketChannel = (NioSocketChannel) ctx.channel();
-        SocketClientMapper.addSocketChannel(uuid, socketChannel);
-        logger.debug("channelActive: uuid=" + uuid);
-    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

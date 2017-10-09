@@ -42,7 +42,7 @@ public class OperationSystemHandlerThread extends Thread {
                             JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), bytes);
                             continue;
                         }
-                        socketChannel.writeAndFlush(msg.getContent()+"\n");
+                        socketChannel.writeAndFlush(msg.getCmdStr());
 
                     }
                 } else {

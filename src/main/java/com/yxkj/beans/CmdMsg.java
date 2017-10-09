@@ -23,6 +23,22 @@ public class CmdMsg implements Serializable {
     private String content;
 
     /**
+     * 货柜号
+     */
+    private int address;
+
+    /**
+     * 货柜类型
+     * 1.弹簧柜
+     * 2.格子柜
+     */
+    private int addressType;
+
+    /**
+     * 货道号
+     */
+    private int box;
+    /**
      * 消息类型
      * 1.出货指令
      * 2.APP更新指令
@@ -60,5 +76,33 @@ public class CmdMsg implements Serializable {
 
     public void setDeviceNo(String deviceNo) {
         this.deviceNo = deviceNo;
+    }
+
+    public int getAddress() {
+        return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
+    }
+
+    public int getBox() {
+        return box;
+    }
+
+    public void setBox(int box) {
+        this.box = box;
+    }
+
+    public int getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(int addressType) {
+        this.addressType = addressType;
+    }
+
+    public String getCmdStr() {
+        return this.address + ";" + this.getBox() + ";" + this.addressType + "\n";
     }
 }
