@@ -31,7 +31,7 @@ public class AutoSellerHandler extends CustomHeartbeatHandler {
     @Override
     protected void handleData(ChannelHandlerContext ctx, String msg) {
         logger.debug("channelRead: " + ctx.channel().remoteAddress() + " Say:" + msg);
-
+        String uuid = ctx.channel().id().asLongText();
 
         //msg 格式={f1;d0001;cxxxx};
         //f是否为第一条消息，1为是，0为不是
@@ -44,8 +44,8 @@ public class AutoSellerHandler extends CustomHeartbeatHandler {
             return;
         }
         if (msgs[0].equals("1")) {
-            SocketClientMapper.addSocketChannel(msgs[1], (SocketChannel) ctx.channel());
-        }else {
+            SocketClientMapper.addSocketChannel(uuid, msgs[1], (SocketChannel) ctx.channel());
+        } else {
             // TODO: 2017/9/27 接受中控消息的处理逻辑
             //        DefaultPromise<String> promise = new DefaultPromise<>(ctx.executor());
 //        queueStack.offer(new Request(msg, promise));

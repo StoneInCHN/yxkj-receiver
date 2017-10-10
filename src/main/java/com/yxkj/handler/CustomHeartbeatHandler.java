@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class CustomHeartbeatHandler extends SimpleChannelInboundHandler<String> {
-    private Logger logger = LoggerFactory.getLogger(OperationSystemHandlerThread.class.getSimpleName());
+    private Logger logger = LoggerFactory.getLogger(CustomHeartbeatHandler.class.getSimpleName());
     public static final String PING_MSG = "PING_MSG";
     public static final String PONG_MSG = "PONG_MSG";
     protected String name;

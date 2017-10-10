@@ -12,21 +12,26 @@ import java.util.Map;
  * @since 2017/9/19
  */
 public class SocketClientMapper {
-    private static Map<String, SocketChannel> map = new HashMap<String, SocketChannel>();
+    private static Map<String, SocketChannel> map = new HashMap<>();
 
-    public static void addSocketChannel(String id, SocketChannel gateway_channel) {
-        map.put(id, gateway_channel);
+    private static Map<String, String> uuidMap = new HashMap<>();
+
+    public static void addSocketChannel(String uuid, String deviceNo, SocketChannel gateway_channel) {
+        map.put(deviceNo, gateway_channel);
+        uuidMap.put(uuid, deviceNo);
     }
 
     public static Map<String, SocketChannel> getChannels() {
         return map;
     }
 
-    public static SocketChannel getSocketChannel(String id) {
-        return map.get(id);
+    public static SocketChannel getSocketChannel(String deviceNo) {
+        return map.get(deviceNo);
     }
 
-    public static void removeSocketChannel(String id) {
-        map.remove(id);
+    public static void removeSocketChannel(String uuid) {
+        String deviceNo = uuidMap.get(uuid);
+        map.remove(deviceNo);
+        uuidMap.remove(uuid);
     }
 }
