@@ -20,7 +20,7 @@ public class AutoSellerChannelInitializer<C extends Channel> extends ChannelInit
 
     protected void initChannel(C ch) throws Exception {
         ChannelPipeline p = ch.pipeline();
-        p.addLast(new IdleStateHandler(10, 0, 0));
+        p.addLast(new IdleStateHandler(0, 0, 10));
         p.addLast(new LoggingHandler());
         p.addLast("decoder", new LineBasedFrameDecoder(1024));
         p.addLast(new StringDecoder());

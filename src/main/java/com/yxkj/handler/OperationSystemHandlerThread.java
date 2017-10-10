@@ -38,10 +38,12 @@ public class OperationSystemHandlerThread extends Thread {
                         //后台命令处理逻辑
                         SocketChannel socketChannel = SocketClientMapper.getSocketChannel(msg.getDeviceNo());
                         if (socketChannel == null) {
-                            logger.debug("No such deviceNo");
-                            JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), bytes);
+                            logger.debug("设备不存在！！忽略命令："+msg);
+                            //如果设备不存在，忽略该命令
+//                            JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), bytes);
                             continue;
                         }
+                        logger.debug("发送命令："+msg);
                         socketChannel.writeAndFlush(msg.getCmdStr());
 
                     }

@@ -105,4 +105,17 @@ public class CmdMsg implements Serializable {
     public String getCmdStr() {
         return this.address + ";" + this.getBox() + ";" + this.addressType + "\n";
     }
+
+    @Override
+    public String toString() {
+        return "CmdMsg{" +
+                "id=" + id +
+                ", deviceNo='" + deviceNo + '\'' +
+                ", content='" + content + '\'' +
+                ", address=" + address +
+                ", addressType=" + addressType +
+                ", box=" + box +
+                ", type=" + type +
+                '}';
+    }
 }

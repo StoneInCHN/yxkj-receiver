@@ -33,5 +33,6 @@ public class SocketClientMapper {
         String deviceNo = uuidMap.get(uuid);
         map.remove(deviceNo);
         uuidMap.remove(uuid);
+
     }
 }

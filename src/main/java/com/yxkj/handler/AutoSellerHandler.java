@@ -62,10 +62,10 @@ public class AutoSellerHandler extends CustomHeartbeatHandler {
     }
 
     @Override
-    protected void handleReaderIdle(ChannelHandlerContext ctx) {
-        super.handleReaderIdle(ctx);
+    protected void handleAllIdle(ChannelHandlerContext ctx) {
+        super.handleAllIdle(ctx);
         logger.error("---client " + ctx.channel().remoteAddress().toString() + " reader timeout, close it---");
-//        ctx.close();
+        ctx.close();
     }
 
     @Override

@@ -13,7 +13,6 @@ public abstract class CustomHeartbeatHandler extends SimpleChannelInboundHandler
     public static final String PING_MSG = "PING_MSG";
     public static final String PONG_MSG = "PONG_MSG";
     protected String name;
-    private int heartbeatCount = 0;
 
     public CustomHeartbeatHandler(String name) {
         this.name = name;
@@ -32,14 +31,12 @@ public abstract class CustomHeartbeatHandler extends SimpleChannelInboundHandler
 
     protected void sendPingMsg(ChannelHandlerContext context) {
         context.writeAndFlush(Unpooled.wrappedBuffer((PING_MSG+"\n").getBytes()));
-        heartbeatCount++;
-        logger.debug(name + " sent ping msg to " + context.channel().remoteAddress() + ", count: " + heartbeatCount);
+        logger.debug(name + " sent ping msg to " + context.channel().remoteAddress());
     }
 
     private void sendPongMsg(ChannelHandlerContext context) {
         context.writeAndFlush(Unpooled.wrappedBuffer((PONG_MSG+"\n").getBytes()));
-        heartbeatCount++;
-        logger.debug(name + " sent pong msg to " + context.channel().remoteAddress() + ", count: " + heartbeatCount);
+        logger.debug(name + " sent pong msg to " + context.channel().remoteAddress());
     }
 
     protected abstract void handleData(ChannelHandlerContext channelHandlerContext, String msg);
