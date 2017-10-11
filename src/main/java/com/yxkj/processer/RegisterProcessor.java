@@ -1,7 +1,6 @@
 package com.yxkj.processer;
 
 import com.yxkj.data.SocketClientMapper;
-import com.yxkj.server.AutoSellerServer;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
@@ -20,10 +19,10 @@ public class RegisterProcessor implements IProcessor {
         logger.debug("channelRead: " + ctx.channel().remoteAddress() + " Say:" + msg);
 
 
-        //msg 格式={f1;d0001;cxxxx};
-        //f是否为第一条消息，1为是，0为不是
-        //d表示设备号
-        //c表示消息内容
+        //msg 格式={1;0001;xxxx};
+        //1是否为第一条消息，1为是，0为不是
+        //0001表示设备号
+        //xxxx表示消息内容
         //判断如果是第一条消息，保存socketChannel到map中
         String[] msgs = msg.split(";");
         String uuid = ctx.channel().id().asLongText();
@@ -47,5 +46,10 @@ public class RegisterProcessor implements IProcessor {
 //            }
 //        });
         }
+    }
+
+    @Override
+    public boolean vaildateProcesser(String msg) {
+        return true;
     }
 }

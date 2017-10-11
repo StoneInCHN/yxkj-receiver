@@ -1,5 +1,7 @@
 package com.yxkj.beans;
 
+import com.yxkj.utils.JsonUtils;
+
 import java.io.Serializable;
 
 /**
@@ -102,9 +104,11 @@ public class CmdMsg implements Serializable {
         this.addressType = addressType;
     }
 
-    public String getCmdStr() {
-        return this.address + ";" + this.getBox() + ";" + this.addressType + "$_$";
-    }
+//    public String getCmdStr() {
+//
+////        return this.address + ";" + this.getBox() + ";" + this.addressType + "$_$";
+//        return cmd;
+//    }
 
     @Override
     public String toString() {

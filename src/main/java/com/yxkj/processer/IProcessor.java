@@ -8,4 +8,6 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public interface IProcessor {
     void process(ChannelHandlerContext ctx, String msg);
+
+    boolean vaildateProcesser(String msg);
 }

@@ -49,7 +49,7 @@ public class AutoSellerHandler extends CustomHeartbeatHandler {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        logger.debug("channelInactive");
+        logger.debug("---channelInactive --- " +ctx.channel().remoteAddress().toString());
         String uuid = ctx.channel().id().asLongText();
         SocketClientMapper.removeSocketChannel(uuid);
     }

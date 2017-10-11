@@ -10,16 +10,19 @@ public class ProcessorWatcher {
 
     /**
      * 处理业务
+     *
      * @param msg
      */
     public void process(ChannelHandlerContext ctx, String msg) {
         iProcessorList.forEach((iProcessor -> {
-            iProcessor.process(ctx,msg);
+            if (iProcessor.vaildateProcesser(msg))
+                iProcessor.process(ctx, msg);
         }));
     }
 
     /**
      * 添加监听
+     *
      * @param iProcessor
      */
     public void addProcessor(IProcessor iProcessor) {
