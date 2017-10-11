@@ -23,7 +23,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        String cmd = "1;001;test\n";
+        String cmd = "1;001;test$_$";
         ctx.writeAndFlush(Unpooled.wrappedBuffer(cmd.getBytes()));
     }
 

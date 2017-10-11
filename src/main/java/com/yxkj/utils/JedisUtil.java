@@ -23,9 +23,10 @@ public class JedisUtil {
 //        JEDIS_IP=conf.getString("jedis.ip","127.0.0.1");
 //        JEDIS_PORT=conf.getInt("jedis.port",6379);
 //        JEDIS_PASSWORD=conf.getString("jedis.password",null);
-        JEDIS_IP = "127.0.0.1";
-        JEDIS_PORT = 6379;
-        JEDIS_PASSWORD = null;
+        JEDIS_IP = PropertiesUtil.getValueByKey("jedis.ip", "127.0.0.1");
+        JEDIS_PORT = Integer.parseInt(PropertiesUtil.getValueByKey("jedis.port", "6379"));
+        JEDIS_PASSWORD = PropertiesUtil.getValueByKey("jedis.password", "");
+
         JedisPoolConfig config = new JedisPoolConfig();
 //        config.setMaxActive(5000);
         config.setMaxIdle(256);
@@ -36,7 +37,7 @@ public class JedisUtil {
         config.setMinEvictableIdleTimeMillis(60000L);
         config.setTimeBetweenEvictionRunsMillis(3000L);
         config.setNumTestsPerEvictionRun(-1);
-        jedisPool = new JedisPool(config, JEDIS_IP, JEDIS_PORT, 60000);
+        jedisPool = new JedisPool(config, JEDIS_IP, JEDIS_PORT, 60000,JEDIS_PASSWORD);
     }
 
     /**
