@@ -103,7 +103,7 @@ public class CmdMsg implements Serializable {
     }
 
     public String getCmdStr() {
-        return this.address + ";" + this.getBox() + ";" + this.addressType + "\n";
+        return this.address + ";" + this.getBox() + ";" + this.addressType + "$_$";
     }
 
     @Override
