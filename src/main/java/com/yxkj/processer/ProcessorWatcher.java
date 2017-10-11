@@ -1,5 +1,6 @@
 package com.yxkj.processer;
 
+import com.yxkj.beans.NotifyMessage;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ public class ProcessorWatcher {
      *
      * @param msg
      */
-    public void process(ChannelHandlerContext ctx, String msg) {
+    public void process(ChannelHandlerContext ctx, NotifyMessage msg) {
         iProcessorList.forEach((iProcessor -> {
-            if (iProcessor.vaildateProcesser(msg))
+            if (iProcessor.validateProcessor(msg))
                 iProcessor.process(ctx, msg);
         }));
     }

@@ -1,5 +1,6 @@
 package com.yxkj.processer;
 
+import com.yxkj.beans.NotifyMessage;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -7,7 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @since 2017/9/19
  */
 public interface IProcessor {
-    void process(ChannelHandlerContext ctx, String msg);
+    void process(ChannelHandlerContext ctx, NotifyMessage msg);
 
-    boolean vaildateProcesser(String msg);
+    boolean validateProcessor(NotifyMessage msg);
 }

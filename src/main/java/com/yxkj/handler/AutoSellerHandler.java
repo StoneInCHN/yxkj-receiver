@@ -1,9 +1,11 @@
 package com.yxkj.handler;
 
+import com.yxkj.beans.NotifyMessage;
 import com.yxkj.data.SocketClientMapper;
 import com.yxkj.processer.ProcessorWatcher;
 import com.yxkj.processer.RegisterProcessor;
 import com.yxkj.server.AutoSellerServer;
+import com.yxkj.utils.JsonUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class AutoSellerHandler extends CustomHeartbeatHandler {
 
     @Override
     protected void handleData(ChannelHandlerContext ctx, String msg) {
-        watcher.process(ctx,msg);
+        watcher.process(ctx, JsonUtils.toObject(msg, NotifyMessage.class));
     }
 
     @Override
@@ -49,7 +51,7 @@ public class AutoSellerHandler extends CustomHeartbeatHandler {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        logger.debug("---channelInactive --- " +ctx.channel().remoteAddress().toString());
+        logger.debug("---channelInactive --- " + ctx.channel().remoteAddress().toString());
         String uuid = ctx.channel().id().asLongText();
         SocketClientMapper.removeSocketChannel(uuid);
     }
