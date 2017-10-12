@@ -1,8 +1,8 @@
 package com.yxkj.handler;
 
-import com.yxkj.beans.CmdMsg;
 import com.yxkj.data.Constant;
 import com.yxkj.data.SocketClientMapper;
+import com.yxkj.entity.CmdMsg;
 import com.yxkj.utils.JedisUtil;
 import com.yxkj.utils.JsonUtils;
 import com.yxkj.utils.ObjectUtil;

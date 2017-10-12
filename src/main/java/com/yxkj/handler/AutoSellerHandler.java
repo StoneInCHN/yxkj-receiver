@@ -1,13 +1,12 @@
 package com.yxkj.handler;
 
-import com.yxkj.beans.NotifyMessage;
 import com.yxkj.data.SocketClientMapper;
+import com.yxkj.entity.NotifyMessage;
 import com.yxkj.processer.ProcessorWatcher;
 import com.yxkj.processer.RegisterProcessor;
 import com.yxkj.server.AutoSellerServer;
 import com.yxkj.utils.JsonUtils;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

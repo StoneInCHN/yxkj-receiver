@@ -1,6 +1,6 @@
 package com.yxkj.processer;
 
-import com.yxkj.beans.NotifyMessage;
+import com.yxkj.entity.NotifyMessage;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.ArrayList;

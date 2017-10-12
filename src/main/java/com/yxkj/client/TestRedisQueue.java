@@ -1,7 +1,7 @@
 package com.yxkj.client;
 
-import com.yxkj.beans.CmdMsg;
-import com.yxkj.beans.Message;
+import com.yxkj.entity.CmdMsg;
+import com.yxkj.entity.NotifyMessage;
 import com.yxkj.utils.JedisUtil;
 import com.yxkj.utils.ObjectUtil;
 
@@ -26,7 +26,7 @@ public class TestRedisQueue {
 
     private static void init() throws IOException {
         for (int i = 0; i < 1000000; i++) {
-            Message message = new Message();
+            NotifyMessage message = new NotifyMessage();
 //            message.setContent("test");
             JedisUtil.lpush(redisKey, ObjectUtil.object2Bytes(message));
         }
