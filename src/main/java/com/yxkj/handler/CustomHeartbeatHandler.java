@@ -30,12 +30,12 @@ public abstract class CustomHeartbeatHandler extends SimpleChannelInboundHandler
     }
 
     protected void sendPingMsg(ChannelHandlerContext context) {
-        context.writeAndFlush(Unpooled.wrappedBuffer((PING_MSG+"\n").getBytes()));
+        context.writeAndFlush(Unpooled.wrappedBuffer((PING_MSG+"$_$").getBytes()));
         logger.debug(name + " sent ping msg to " + context.channel().remoteAddress());
     }
 
     private void sendPongMsg(ChannelHandlerContext context) {
-        context.writeAndFlush(Unpooled.wrappedBuffer((PONG_MSG+"\n").getBytes()));
+        context.writeAndFlush(Unpooled.wrappedBuffer((PONG_MSG+"$_$").getBytes()));
         logger.debug(name + " sent pong msg to " + context.channel().remoteAddress());
     }
 

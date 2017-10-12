@@ -11,14 +11,26 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class TimeClient {
     static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
     public static void main(String[] args) throws Exception {
+
+        // Configure the client.
+        for (int i = 0; i < 100; i++) {
+        new Thread(() -> {
+            TimeClient client = new TimeClient();
+            client.start();
+        }).start();
+        }
+    }
+
+    public void start() {
         String host = "localhost";
         int port = 3331;
-        // Configure the client.
+
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
@@ -29,13 +41,14 @@ public class TimeClient {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline p = ch.pipeline();
+                            p.addLast(new IdleStateHandler(8, 0, 0));
                             p.addLast(new LoggingHandler());
-//                            p.addLast("decoder", new LineBasedFrameDecoder(1024));
+//                p.addLast("decoder", new LineBasedFrameDecoder(1024));
                             ByteBuf buf = Unpooled.copiedBuffer("$_$".getBytes());
                             p.addLast(new DelimiterBasedFrameDecoder(1024, buf));
                             p.addLast(new StringDecoder());
                             p.addLast(new StringEncoder());
-                            p.addLast(new NettyClientHandler());
+                            p.addLast(new NettyClientHandler(TimeClient.this));
 
                         }
                     });
@@ -45,9 +58,17 @@ public class TimeClient {
 
             // Wait until the connection is closed.
             f.channel().closeFuture().sync();
-        } finally {
+        } catch (
+                InterruptedException e)
+
+        {
+            e.printStackTrace();
+        } finally
+
+        {
             // Shut down the event loop to terminate all threads.
             group.shutdownGracefully();
         }
     }
+
 }
