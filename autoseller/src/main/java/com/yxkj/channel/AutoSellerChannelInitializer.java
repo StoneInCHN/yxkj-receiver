@@ -1,6 +1,5 @@
 package com.yxkj.channel;
 
-import com.yxkj.handler.AutoSellerHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -11,6 +10,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import com.yxkj.handler.AutoSellerHandler;
 
 /**
  * channel初始化类，可以定义管道解析规则

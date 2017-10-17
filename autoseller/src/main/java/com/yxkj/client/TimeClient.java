@@ -19,7 +19,7 @@ public class TimeClient {
     public static void main(String[] args) throws Exception {
 
         // Configure the client.
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1500; i++) {
         new Thread(() -> {
             TimeClient client = new TimeClient();
             client.start();
@@ -28,7 +28,7 @@ public class TimeClient {
     }
 
     public void start() {
-        String host = "localhost";
+        String host = "192.167.1.59";
         int port = 3331;
 
         EventLoopGroup group = new NioEventLoopGroup();
