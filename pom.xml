@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>com.yxkj</groupId>
 			<artifactId>common-entity</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>0.0.4-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

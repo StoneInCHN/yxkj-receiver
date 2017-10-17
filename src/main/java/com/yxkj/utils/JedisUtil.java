@@ -19,25 +19,28 @@ public class JedisUtil {
 
     static {
         //Configuration自行写的配置文件解析类,继承自Properties
-//        Configuration conf= Configuration.getInstance();
-//        JEDIS_IP=conf.getString("jedis.ip","127.0.0.1");
-//        JEDIS_PORT=conf.getInt("jedis.port",6379);
-//        JEDIS_PASSWORD=conf.getString("jedis.password",null);
+        //        Configuration conf= Configuration.getInstance();
+        //        JEDIS_IP=conf.getString("jedis.ip","127.0.0.1");
+        //        JEDIS_PORT=conf.getInt("jedis.port",6379);
+        //        JEDIS_PASSWORD=conf.getString("jedis.password",null);
         JEDIS_IP = PropertiesUtil.getValueByKey("jedis.ip", "127.0.0.1");
         JEDIS_PORT = Integer.parseInt(PropertiesUtil.getValueByKey("jedis.port", "6379"));
         JEDIS_PASSWORD = PropertiesUtil.getValueByKey("jedis.password", "");
 
         JedisPoolConfig config = new JedisPoolConfig();
-//        config.setMaxActive(5000);
+        //        config.setMaxActive(5000);
         config.setMaxIdle(256);
-//        config.setMaxWait(5000L);
+        //        config.setMaxWait(5000L);
         config.setTestOnBorrow(true);
         config.setTestOnReturn(true);
         config.setTestWhileIdle(true);
         config.setMinEvictableIdleTimeMillis(60000L);
         config.setTimeBetweenEvictionRunsMillis(3000L);
         config.setNumTestsPerEvictionRun(-1);
-        jedisPool = new JedisPool(config, JEDIS_IP, JEDIS_PORT, 60000,JEDIS_PASSWORD);
+        if (JEDIS_PASSWORD.isEmpty())
+            jedisPool = new JedisPool(config, JEDIS_IP, JEDIS_PORT, 60000);
+        else
+            jedisPool = new JedisPool(config, JEDIS_IP, JEDIS_PORT, 60000, JEDIS_PASSWORD);
     }
 
     /**
