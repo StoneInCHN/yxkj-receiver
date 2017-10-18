@@ -49,7 +49,7 @@ public class ReceiverClient {
 
     logger.debug("deviceNo: %s;Content:%s", deviceNo);
     CmdMsg cmdMsg = new CmdMsg();
-    cmdMsg.setType(CommonEnum.CmdType.AD_UPDATE.ordinal());
+    cmdMsg.setType(CommonEnum.CmdType.AD_UPDATE);
     cmdMsg.setContent(map);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
@@ -72,7 +72,7 @@ public class ReceiverClient {
     contentMap.put("volume", String.valueOf(volume));
     CmdMsg cmdMsg = new CmdMsg();
     cmdMsg.setContent(contentMap);
-    cmdMsg.setType(CommonEnum.CmdType.VOLUME.ordinal());
+    cmdMsg.setType(CommonEnum.CmdType.VOLUME);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
     JedisUtil.rpush(JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
@@ -95,5 +95,23 @@ public class ReceiverClient {
       }
     });
     return cmdMsgList;
+  }
+
+  /**
+   * 通知类型消息
+   *
+   * @param deviceNo 设备号
+   * @return
+   * @throws IOException
+   */
+  public CmdMsg notificationCmd(String deviceNo, Long recordId, CommonEnum.CmdType cmdType)
+      throws IOException {
+    logger.debug("deviceNo: %s;cmdType:%s", deviceNo, cmdType.toString());
+    CmdMsg cmdMsg = new CmdMsg();
+    cmdMsg.setType(cmdType);
+    cmdMsg.setDeviceNo(deviceNo);
+    cmdMsg.setId(recordId);
+    JedisUtil.rpush(JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    return cmdMsg;
   }
 }

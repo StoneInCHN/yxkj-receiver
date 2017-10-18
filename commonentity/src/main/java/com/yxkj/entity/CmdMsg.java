@@ -1,5 +1,7 @@
 package com.yxkj.entity;
 
+import com.yxkj.commonenum.CommonEnum;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ public class CmdMsg implements Serializable {
   /**
    * 消息类型 0.出货指令 1.APP更新指令 2.广告更新指令 3.声音设置指令
    */
-  private int type;
+  private CommonEnum.CmdType type;
 
   public Map<String, String> getContent() {
     return content;
@@ -64,14 +66,6 @@ public class CmdMsg implements Serializable {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public int getType() {
-    return type;
-  }
-
-  public void setType(int type) {
-    this.type = type;
   }
 
   public String getDeviceNo() {
@@ -104,6 +98,14 @@ public class CmdMsg implements Serializable {
 
   public void setAddressType(int addressType) {
     this.addressType = addressType;
+  }
+
+  public CommonEnum.CmdType getType() {
+    return type;
+  }
+
+  public void setType(CommonEnum.CmdType type) {
+    this.type = type;
   }
 
   @Override
