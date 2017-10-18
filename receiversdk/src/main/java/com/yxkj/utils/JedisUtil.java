@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by Kinglf on 2016/10/17.
+ * Created by huyong
  */
 public class JedisUtil {
   private static JedisPool jedisPool;
