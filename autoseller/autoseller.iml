@@ -20,6 +20,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.1.4" level="project" />
-    <orderEntry type="library" name="Maven: com.yxkj:common-entity:0.0.5-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="commonentity" />
   </component>
 </module>
