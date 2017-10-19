@@ -14,9 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.yxkj.common.commonenum.CommonEnum.CmdType.APP_UPDATE;
+
 /**
  * 服务器发送上位机指令sdk client
  */
+@SuppressWarnings("unused")
 public class ReceiverClient {
 
   private Logger logger = LoggerFactory.getLogger(ReceiverClient.class.getSimpleName());
@@ -94,6 +97,26 @@ public class ReceiverClient {
       }
     });
     return cmdMsgList;
+  }
+
+  /**
+   * 通知类型消息
+   *
+   * @param deviceNo 设备号
+   * @return
+   * @throws IOException
+   */
+  public CmdMsg appUpdateCmd(String deviceNo, Long recordId, String url) throws IOException {
+    logger.debug("deviceNo: %s;url:%s", deviceNo, url);
+    CmdMsg cmdMsg = new CmdMsg();
+    cmdMsg.setType(APP_UPDATE);
+    Map<String, String> mapContent = new HashMap<>();
+    mapContent.put(APP_UPDATE.name(), url);
+    cmdMsg.setContent(mapContent);
+    cmdMsg.setDeviceNo(deviceNo);
+    cmdMsg.setId(recordId);
+    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    return cmdMsg;
   }
 
   /**
