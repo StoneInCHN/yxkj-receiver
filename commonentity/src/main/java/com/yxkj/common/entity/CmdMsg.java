@@ -47,6 +47,8 @@ public class CmdMsg implements Serializable {
   }
 
   public String getContentString() {
+    if (content == null)
+      return "";
     StringBuilder contentStr = new StringBuilder();
     for (String k : content.keySet()) {
       contentStr.append(k);

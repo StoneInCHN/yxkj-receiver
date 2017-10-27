@@ -16,9 +16,12 @@ public class JedisUtil {
 		private static JedisPool jedisPool;
 
 		static {
-				String JEDIS_IP = PropertiesUtil.getValueByKey("jedis.ip", "127.0.0.1");
-				int JEDIS_PORT = Integer.parseInt(PropertiesUtil.getValueByKey("jedis.port", "6379"));
-				String JEDIS_PASSWORD = PropertiesUtil.getValueByKey("jedis.password", "");
+//				String JEDIS_IP = PropertiesUtil.getValueByKey("jedis.ip", "127.0.0.1");
+//				int JEDIS_PORT = Integer.parseInt(PropertiesUtil.getValueByKey("jedis.port", "6379"));
+//				String JEDIS_PASSWORD = PropertiesUtil.getValueByKey("jedis.password", "");
+				String JEDIS_IP = "106.14.7.117";
+				int JEDIS_PORT = 6379;
+				String JEDIS_PASSWORD = "yxkj2017*";
 
 				JedisPoolConfig config = new JedisPoolConfig();
 				//        config.setMaxActive(5000);
