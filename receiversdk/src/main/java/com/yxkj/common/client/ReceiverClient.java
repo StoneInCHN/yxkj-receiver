@@ -136,4 +136,43 @@ public class ReceiverClient {
     JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
     return cmdMsg;
   }
+
+  /**
+   * 出货测试
+   * 
+   * @param deviceNo 设备号
+   * @param recordId 记录Id
+   * @param address 货柜号
+   * @param addressType 货柜类型
+   * @param channelSn 货道号
+   * @return
+   * @throws IOException
+   */
+  public CmdMsg sellOutTest(String deviceNo, Long recordId, String address, int addressType,
+      String channelSn) throws IOException {
+    logger.debug("deviceNo: %s;address:%s,addressType:%s,channelSn:%s", deviceNo, address,
+        addressType, channelSn);
+    CmdMsg cmdMsg = new CmdMsg();
+    cmdMsg.setAddress(address);
+    cmdMsg.setAddressType(addressType);
+    cmdMsg.setType(CommonEnum.CmdType.SELL_OUT_TEST);
+    cmdMsg.setBox(Integer.parseInt(channelSn.substring(1, channelSn.length())));
+    cmdMsg.setDeviceNo(deviceNo);
+    Map<String, String> contentMap = new HashMap<>();
+    contentMap.put("sellOutTest", "true");
+    cmdMsg.setContent(contentMap);
+    cmdMsg.setId(recordId);
+    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    return cmdMsg;
+  }
+
+  public CmdMsg reboot(String deviceNo, Long recordId) throws IOException {
+    logger.debug("deviceNo: %s;address:%s,addressType:%s,channelSn:%s", deviceNo);
+    CmdMsg cmdMsg = new CmdMsg();
+    cmdMsg.setType(CommonEnum.CmdType.RE_BOOT);
+    cmdMsg.setDeviceNo(deviceNo);
+    cmdMsg.setId(recordId);
+    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    return cmdMsg;
+  }
 }

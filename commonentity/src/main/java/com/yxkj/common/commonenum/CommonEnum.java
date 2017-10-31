@@ -2,18 +2,18 @@ package com.yxkj.common.commonenum;
 
 public class CommonEnum {
 
-		public enum CmdStatus {
-				/**
-				 * 发出指令
-				 */
-				SendOut,
-				/**
-				 * 执行完成
-				 */
-				Finished
-		}
+  public enum CmdStatus {
+    /**
+     * 发出指令
+     */
+    SendOut,
+    /**
+     * 执行完成
+     */
+    Finished
+  }
 
-		/**
+  /**
    * 命令类型
    */
   public enum CmdType {
@@ -36,6 +36,15 @@ public class CommonEnum {
     /**
      * 支付成功指令
      */
-    PAYMENT_SUCCESS
+    PAYMENT_SUCCESS,
+
+    /**
+     * 出货测试
+     */
+    SELL_OUT_TEST,
+    /**
+     * 设备重启
+     */
+    RE_BOOT
   }
 }

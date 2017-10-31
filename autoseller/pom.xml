@@ -5,7 +5,7 @@
     <parent>
         <artifactId>yxkj-receiver</artifactId>
         <groupId>com.yxkj</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>autoseller</artifactId>
@@ -59,13 +59,13 @@
         <dependency>
             <groupId>com.yxkj</groupId>
             <artifactId>common-entity</artifactId>
-            <version>0.0.11-SNAPSHOT</version>
+            <version>0.0.12-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.yxkj</groupId>
             <artifactId>yxkj-receiver</artifactId>
             <type>pom</type>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
