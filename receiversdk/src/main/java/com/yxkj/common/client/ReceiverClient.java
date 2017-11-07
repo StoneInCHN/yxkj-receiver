@@ -55,7 +55,7 @@ public class ReceiverClient {
     cmdMsg.setContent(map);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
-    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
 
     return cmdMsg;
   }
@@ -77,7 +77,7 @@ public class ReceiverClient {
     cmdMsg.setType(CommonEnum.CmdType.VOLUME);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
-    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
     return cmdMsg;
   }
 
@@ -91,7 +91,7 @@ public class ReceiverClient {
   public List<CmdMsg> sendCmdList(List<CmdMsg> cmdMsgList) throws IOException {
     cmdMsgList.forEach(cmdMsg -> {
       try {
-        JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+        JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -115,7 +115,7 @@ public class ReceiverClient {
     cmdMsg.setContent(mapContent);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
-    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
     return cmdMsg;
   }
 
@@ -133,7 +133,7 @@ public class ReceiverClient {
     cmdMsg.setType(cmdType);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
-    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
     return cmdMsg;
   }
 
@@ -162,7 +162,7 @@ public class ReceiverClient {
     contentMap.put("sellOutTest", "true");
     cmdMsg.setContent(contentMap);
     cmdMsg.setId(recordId);
-    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
     return cmdMsg;
   }
 
@@ -172,7 +172,7 @@ public class ReceiverClient {
     cmdMsg.setType(CommonEnum.CmdType.RE_BOOT);
     cmdMsg.setDeviceNo(deviceNo);
     cmdMsg.setId(recordId);
-    JedisUtil.rpush(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
+    JedisUtil.publish(Constant.JEDIS_MESSAGE_KEY.getBytes(), ObjectUtil.object2Bytes(cmdMsg));
     return cmdMsg;
   }
 }

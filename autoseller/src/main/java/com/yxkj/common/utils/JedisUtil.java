@@ -1,8 +1,6 @@
 package com.yxkj.common.utils;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
 
 import java.util.List;
 import java.util.Map;
@@ -501,5 +499,87 @@ public class JedisUtil {
       close(jedis);
     }
     return len;
+  }
+
+
+
+  /**
+   * 监听消息通道
+   * 
+   * @param jedisPubSub - 监听任务
+   * @param channels - 要监听的消息通道
+   */
+  public static void subscribe(BinaryJedisPubSub jedisPubSub, byte[]... channels) {
+    Jedis jedis = null;
+    try {
+      jedis = jedisPool.getResource();
+      jedis.subscribe(jedisPubSub, channels);
+    } finally {
+      jedis.close();
+    }
+  }
+
+  /**
+   * 监听消息通道
+   * 
+   * @param jedisPubSub - 监听任务
+   * @param channels - 要监听的消息通道
+   */
+  public static void subscribe(JedisPubSub jedisPubSub, String... channels) {
+    Jedis jedis = null;
+    try {
+      jedis = jedisPool.getResource();
+      jedis.subscribe(jedisPubSub, channels);
+    } finally {
+      jedis.close();
+    }
+  }
+
+  /**
+   * 监听消息通道
+   *
+   * @param jedisPubSub - 监听任务
+   * @param channels - 要监听的消息通道
+   */
+  public static void subscribe(BinaryJedisPubSub jedisPubSub, byte[] channels) {
+    Jedis jedis = null;
+    try {
+      jedis = jedisPool.getResource();
+      jedis.subscribe(jedisPubSub, channels);
+    } finally {
+      jedis.close();
+    }
+  }
+
+  /**
+   * 推入消息到redis消息通道
+   *
+   * @param channel
+   * @param message
+   */
+  public static void publish(String channel, String message) {
+    Jedis jedis = null;
+    try {
+      jedis = jedisPool.getResource();
+      jedis.publish(channel, message);
+    } finally {
+      jedis.close();
+    }
+  }
+
+  /**
+   * 推入消息到redis消息通道
+   *
+   * @param key
+   * @param message
+   */
+  public static void publish(byte[] key, byte[] message) {
+    Jedis jedis = null;
+    try {
+      jedis = jedisPool.getResource();
+      jedis.publish(key, message);
+    } finally {
+      jedis.close();
+    }
   }
 }

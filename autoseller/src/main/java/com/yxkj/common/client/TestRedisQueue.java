@@ -14,39 +14,38 @@ import static com.yxkj.common.data.Constant.JEDIS_MESSAGE_KEY;
  * @since 2017/9/23
  */
 public class TestRedisQueue {
-    public static byte[] redisKey = "key".getBytes();
+  public static byte[] redisKey = "push".getBytes();
 
-//    static {
-//        try {
-//            init();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+  // static {
+  // try {
+  // init();
+  // } catch (IOException e) {
+  // e.printStackTrace();
+  // }
+  // }
 
-    private static void init() throws IOException {
-        for (int i = 0; i < 1000000; i++) {
-            NotifyMessage message = new NotifyMessage();
-//            message.setContent("test");
-            JedisUtil.lpush(redisKey, ObjectUtil.object2Bytes(message));
-        }
-
+  private static void init() throws IOException {
+    NotifyMessage message = new NotifyMessage();
+    // message.setContent("test");
+    for (int i = 0; i < 100000; i++) {
+      JedisUtil.publish("push", "test " + i);
     }
+  }
 
-    public static void main(String[] args) {
-        try {
-//            pop();
-            System.out.println(1<<7);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  public static void main(String[] args) {
+    try {
 
-    private static void pop() throws Exception {
-        byte[] bytes = JedisUtil.rpop(JEDIS_MESSAGE_KEY.getBytes());
-        CmdMsg msg = (CmdMsg) ObjectUtil.bytes2Object(bytes);
-        if (msg != null) {
-            System.out.println("----" + msg.getContent());
-        }
+      init();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
+
+  private static void pop() throws Exception {
+    byte[] bytes = JedisUtil.rpop(JEDIS_MESSAGE_KEY.getBytes());
+    CmdMsg msg = (CmdMsg) ObjectUtil.bytes2Object(bytes);
+    if (msg != null) {
+      System.out.println("----" + msg.getContent());
+    }
+  }
 }

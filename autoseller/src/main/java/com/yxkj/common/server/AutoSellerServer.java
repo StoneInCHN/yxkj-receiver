@@ -1,7 +1,10 @@
 package com.yxkj.common.server;
 
 import com.yxkj.common.channel.AutoSellerChannelInitializer;
+import com.yxkj.common.commonenum.Constant;
 import com.yxkj.common.handler.OperationSystemHandlerThread;
+import com.yxkj.common.handler.RedisMQHandler;
+import com.yxkj.common.utils.JedisUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -26,7 +29,6 @@ public class AutoSellerServer {
     public void startServer(int port) throws InterruptedException {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         NioEventLoopGroup group = new NioEventLoopGroup();
-
         try {
             serverBootstrap.group(group);
             serverBootstrap.option(ChannelOption.AUTO_READ, true);
@@ -52,8 +54,9 @@ public class AutoSellerServer {
             logger.debug("Server started and listen on " + f.channel().localAddress());
 
 
-            OperationSystemHandlerThread thread = new OperationSystemHandlerThread();
-            thread.start();
+//            OperationSystemHandlerThread thread = new OperationSystemHandlerThread();
+            JedisUtil.subscribe(new RedisMQHandler(), Constant.JEDIS_MESSAGE_KEY.getBytes());
+//            thread.start();
             f.channel().closeFuture().sync();// 应用程序会一直等待，直到channel关闭
         } catch (InterruptedException e) {
             e.printStackTrace();

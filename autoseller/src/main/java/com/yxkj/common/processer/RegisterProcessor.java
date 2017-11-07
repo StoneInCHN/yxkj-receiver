@@ -22,6 +22,7 @@ public class RegisterProcessor implements IProcessor {
         SocketClientMapper.addSocketChannel(uuid, msg.getContent(), (SocketChannel) ctx.channel());
     }
 
+    @Override
     public boolean validateProcessor(NotifyMessage msg) {
         return msg.getMsgType().equals(NotifyMessage.MsgType.REGISTER);
     }
